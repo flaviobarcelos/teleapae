@@ -1,0 +1,11 @@
+jQuery(function($){
+	$(".mask-cep").mask("99999-999");
+	$(".mask-date").mask("99/99/9999");
+	$(".mask-month-year").mask("99/9999");
+	$(".mask-year").mask("9999");
+	$(".datepicker").mask("99/99/9999");
+	$(".mask-fone").mask("(99)9999-9999");
+	$(".mask-cpf").mask("999.999.999-99");
+	$(".mask-cnpj").mask("99.999.999/9999-99");
+	$(".mask-time").mask("99:99:99");
+});

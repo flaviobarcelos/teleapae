@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * Script responsável pela destruição da sessão do usuário
+ * - Criado em 07/09/2010
+ * 
+ * @author Niury Martins Pereira
+ */
+session_destroy();
+header('location: ./');
