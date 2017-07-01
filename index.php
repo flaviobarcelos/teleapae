@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Arquivo responsável por realizar as principais configurações do sistema.
- * Toda requisição passa por este arquivo.
+ * Arquivo responsï¿½vel por realizar as principais configuraï¿½ï¿½es do sistema.
+ * Toda requisiï¿½ï¿½o passa por este arquivo.
  * - Criado em 06/09/2010
  * 
  * @author Niury Martins Pereiraassasas
  */
-
+ini_set('display_errors',0);
 session_start();
 setlocale(LC_ALL, 'pt_BR');
 header("Content-Type: text/html; charset=ISO-8859-1", true);
@@ -25,10 +25,10 @@ require(INCLUDES . '/inc.functions_log.php');
 
 $pagina = getpage();
 
-//verifica se o usuário não está logado
+//verifica se o usuï¿½rio nï¿½o estï¿½ logado
 if (!isauth()) {
 
-	//verifica se a requisição é do módulo de login
+	//verifica se a requisiï¿½ï¿½o ï¿½ do mï¿½dulo de login
 	if (strpos($pagina, 'auth')) {
 		require($pagina);
 	}

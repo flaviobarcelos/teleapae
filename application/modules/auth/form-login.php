@@ -1,7 +1,7 @@
 <?php 
 
 /**
- * Formulário de login
+ * Formulï¿½rio de login
  * - Criado em 07/09/2010
  * 
  * @author Niury Martins Pereira
@@ -12,7 +12,7 @@ require(INCLUDES . '/inc.doctype.php');
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br">
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
-		<title><?php echo 'Formulário de Login | ' , SYSTEM_NAME;?></title>
+		<title><?php echo 'Formulï¿½rio de Login | ' , SYSTEM_NAME;?></title>
 		<link rel="stylesheet" href="<?php echo CSS , '/default.css'; ?>" type="text/css" media="screen" />
 		<link rel="stylesheet" href="<?php echo CSS , '/form-login.css'; ?>" type="text/css" media="screen" />
 		<script type="text/javascript" src="<?php echo JS . '/jquery-1.4.2.min.js';?>"></script>
@@ -24,7 +24,7 @@ require(INCLUDES . '/inc.doctype.php');
 		$.validator.setDefaults({
 			submitHandler: function() {
 				
-				//verifica se é vendedor padrão
+				//verifica se ï¿½ vendedor padrï¿½o
 				
 				$.ajax({
 					type: "POST",
@@ -53,7 +53,7 @@ require(INCLUDES . '/inc.doctype.php');
 								},
 								fadeIn: 100,
 								timeout: 2000,
-								message: 'Autenticação realizada com sucesso.<br />Carregando o sistema...',
+								message: 'Autenticaï¿½ï¿½o realizada com sucesso.<br />Carregando o sistema...',
 								onUnblock: function() {
 									window.location.href = "<?php echo SERVER . '/' . montalink('default-home', '&');?>";
 								}
@@ -76,7 +76,7 @@ require(INCLUDES . '/inc.doctype.php');
 			$("#login").focus();
 
 			var validator = $("#form-login").bind("invalid-form.validate", function() {
-				//$.growlUI('Atenção', 'Preencha corretamente os dados');
+				//$.growlUI('Atenï¿½ï¿½o', 'Preencha corretamente os dados');
 
 				$.blockUI({
 					message: '<h4>Favor preencher os dados corretamente</h4>',
@@ -138,7 +138,7 @@ require(INCLUDES . '/inc.doctype.php');
 	<body>
 		<form id="form-login" style="display:none;" method="post" action="">
 			<p style="margin-top:30px;">
-				<label for="login">Usuário</label>
+				<label for="login">Usuï¿½rio</label>
 				<br />
 				<input type="text" maxlength="16" class="input-text" name="login" id="login" />
 			</p>

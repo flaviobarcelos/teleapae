@@ -1033,10 +1033,10 @@ function geraCodigoBarra($numero){
         }
     }
 
-    $returno.= '<img src="' . IMG . '/barcode/p.gif" width="'.$fino.'" height="'.$altura.'" border="0" />';
-    $returno.= '<img src="' . IMG . '/barcode/b.gif" width="'.$fino.'" height="'.$altura.'" border="0" />';
-    $returno.= '<img src="' . IMG . '/barcode/p.gif" width="'.$fino.'" height="'.$altura.'" border="0" />';
-    $returno.= '<img src="' . IMG . '/barcode/b.gif" width="'.$fino.'" height="'.$altura.'" border="0" />';
+    $returno.= "<img src='" . IMG . "/barcode/p.gif' width='".$fino."' height='".$altura."' border='0' />";
+    $returno.= "<img src='" . IMG . "/barcode/b.gif' width='".$fino."' height='".$altura."' border='0' />";
+    $returno.= "<img src='" . IMG . "/barcode/p.gif' width='".$fino."' height='".$altura."' border='0' />";
+    $returno.= "<img src='" . IMG . "/barcode/b.gif' width='".$fino."' height='".$altura."' border='0' />";
 
     $returno.= '<img ';
 
@@ -1061,7 +1061,7 @@ function geraCodigoBarra($numero){
                 $f1 = $largo ;
             }
 
-            $returno.= 'src="' . IMG . '/barcode/p.gif" width="'.$f1.'" height="'.$altura.'" border="0">';
+            $returno.= "src='" . IMG . "/barcode/p.gif' width='".$f1."' height='".$altura."' border='0'>";
             $returno.= '<img ';
 
             if(substr($f, $i, 1) == '0'){
@@ -1070,13 +1070,13 @@ function geraCodigoBarra($numero){
                 $f2 = $largo ;
             }
 
-            $returno.= 'src="' . IMG . '/barcode/b.gif" width="'.$f2.'" height="'.$altura.'" border="0">';
+            $returno.= "src='" . IMG . "/barcode/b.gif' width='".$f2."' height='".$altura."' border='0'>";
             $returno.= '<img ';
         }
     }
-    $returno.= 'src="' . IMG . '/barcode/p.gif" width="'.$largo.'" height="'.$altura.'" border="0" />';
-    $returno.= '<img src="' . IMG . '/barcode/b.gif" width="'.$fino.'" height="'.$altura.'" border="0" />';
-    $returno.= '<img src="' . IMG . '/barcode/p.gif" width="1" height="'.$altura.'" border="0" />';
+    $returno.= "src='" . IMG . "/barcode/p.gif' width='".$largo."' height='".$altura."' border='0' />";
+    $returno.= "<img src='" . IMG . "/barcode/b.gif' width='".$fino."' height='".$altura."' border='0' />";
+    $returno.= "<img src='" . IMG . "/barcode/p.gif' width='1' height='".$altura."' border='0' />";
 
     return $returno;
 }

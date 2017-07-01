@@ -1,6 +1,6 @@
 <?php
 /**
- * impressão dos recibos
+ * impress?o dos recibos
  */
 
 function Recibo($pdf, $res, $x, $ln) {
@@ -18,7 +18,7 @@ $erro = false;
 $msg = '';
 
 if (!$dtrecini or !$dtrecfim) {
-    $msg = 'Favor informar o período de recebimento';
+    $msg = 'Favor informar o per?odo de recebimento';
     $erro = true;
 }
 else {
@@ -26,7 +26,7 @@ else {
     $dtrecfim = inverte_formato_data($dtrecfim);
 
     if ($dtrecini > $dtrecfim) {
-        $msg = 'A data de recebimento inicial não pode ser maior que a data final';
+        $msg = 'A data de recebimento inicial n?o pode ser maior que a data final';
         $erro = true;
     }
 }
@@ -102,8 +102,8 @@ if (!mysql_num_rows($sql)) {
     exit();
 }
 
-include_once(CLASSES . '/pdf/pdf.php');
-$pdf = new PDF('P','cm','A4');
+include_once(CLASSES . '/pdf/PdfWithBarCode.php');
+$pdf = new PdfWithBarCode('P','cm','A4');
 $pdf->SetMargins(1.45, 1, 1);
 $pdf->AliasNbPages('{total}');
 $pdf->SetTitle('RECIBOS DE DOAÇÃO');
@@ -144,7 +144,7 @@ while ($res = mysql_fetch_assoc($sql)) {
         $pdf->Ln(-1.3);
         $pdf->MultiCell(14, 0.3, '                               Av. 26 de Outubro, 1595, B. Bela Vista, Ipatinga/MG - CEP 35.160-208
                                CNPJ 20.951.190/0001-30 - U.P. MUNICIPAL - LEI Nº 649 de 19/07/79
-                               U.P. ESTADUAL - LEI Nº 7656 de 27/12/79 - U.P. FEDERAL DECRETO LEI Nº 91.108 de 12/03/85
+                               U.P. ESTADUAL - LEI N? 7656 de 27/12/79 - U.P. FEDERAL DECRETO LEI Nº 91.108 de 12/03/85
                                Registro CNSS: 23.002.006747/88-53 - TELEFONE: (31)3822-3502', 0, 1);
 
 
@@ -198,9 +198,16 @@ Ipatinga, ' . date('d') . ' de ' . date('F') . ' de ' . date('Y') . '
         $barcode = geraCodigoBarra($numero);
         $pdf->SetFont('arial', '', 8);
         $pdf->Cell(9, 0.5, '______________________________________________', 'L', 0, 'C');
-        //$pdf->Cell(9, 0.5, '______________________________________________', 'R', 1, 'C');
         $pdf->Cell(9, 0.5, '______________________________________________', 'R', 1, 'C');
+        //$pdf->Cell(9, 0.5, "$pdf->Code128(50,170,$numero,60,15)", 'R', 1, 'C');
+        //$pdf->Cell(9, 0.5, "$barcode", 'R', 1, 'C');
+        //$pdf->Code128(50,170,$numero,60,15);
+        //$pdf->i25(90,40,"$numero");
+        //$pdf->Codabar(75,40,'123456789');
+        //$pdf->Code39(1,1,'CODE 39',1,10);
         //$pdf->WriteHTML("'".$barcode."'");
+        //$pdf->WriteHTML("$barcode");
+        //var_dump($barcode); die();
         //echo $barcode;
         $pdf->SetFont('arial', 'B', 8);
         $pdf->Cell(9, 0.5, 'APAE IPATINGA', 'L', 0, 'C');
