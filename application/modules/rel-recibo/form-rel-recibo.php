@@ -1,6 +1,6 @@
 <?php
 /**
- * Formulário de fitro para impressão dos recibos
+ * Formulï¿½rio de fitro para impressï¿½o dos recibos
  */
 
 $array_include_arq = array(
@@ -20,8 +20,8 @@ require(INCLUDES . '/inc.header.php');
 ?>
 
 <div class="nav">
-	> <a href="<?php echo montalink('relatorios'); ?>">Relatórios</a>
-	> Impressão de recibos
+	> <a href="<?php echo montalink('relatorios'); ?>">Relatï¿½rios</a>
+	> Impressï¿½o de recibos
 </div>
 
 <form class="form" style="width:500px;" target="_blank" method="post" action="<?php echo montalink('rel-recibo-economico'); ?>" class="form">
@@ -55,7 +55,7 @@ require(INCLUDES . '/inc.header.php');
 
 		<?php echo label('RECIBO CANCELADO', 'cancelado', false); ?>
 		<select name="cancelado" id="cancelado" style="width:109px;">
-			<option value="N">NÃO</option>
+			<option value="N">Nï¿½O</option>
 			<option value="S">SIM</option>
 			<option value="0">TODOS</option>
 		</select>
@@ -114,10 +114,10 @@ require(INCLUDES . '/inc.header.php');
 		</div>
 	</p>
 	<p>
-		<?php echo label('Ordenação', 'ordenacao', false); ?>
+		<?php echo label('Ordenaï¿½ï¿½o', 'ordenacao', false); ?>
 		<select name="ordenacao" id="ordenacao" style="width:300px;">
-			<option value="tb_cidade.nmcidade, tb_doador.nmbairro, tb_doador.endereco, tb_doador.num, tb_doador.nmresponsavel">Cidade, Bairro, Endereço, Num, Responsável</option>
-			<option value="tb_doacao.cddoacao">Código da doação</option>
+			<option value="tb_cidade.nmcidade, tb_doador.nmbairro, tb_doador.endereco, tb_doador.num, tb_doador.nmresponsavel">Cidade, Bairro, Endereï¿½o, Num, Responsï¿½vel</option>
+			<option value="tb_doacao.cddoacao">Cï¿½digo da doaï¿½ï¿½o</option>
 		</select>
 	</p>
 	<br />

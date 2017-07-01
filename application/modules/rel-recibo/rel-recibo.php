@@ -110,7 +110,7 @@ if (!mysql_num_rows($sql)) {
 	<head>
 		<title>IMPRESS�O DE RECIBOS</title>
 		<style type="text/css" media="all">
-		* {font:normal 12px tahoma; margin:0; padding:0;}
+		* {font:normal 10px tahoma; margin:0; padding:0;}
 		table tr td, table tr {margin:0; padding:0;}
 		strong {font-weight:bold;}
 		</style>

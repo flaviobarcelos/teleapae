@@ -198,17 +198,8 @@ Ipatinga, ' . date('d') . ' de ' . date('F') . ' de ' . date('Y') . '
         $barcode = geraCodigoBarra($numero);
         $pdf->SetFont('arial', '', 8);
         $pdf->Cell(9, 0.5, '______________________________________________', 'L', 0, 'C');
-        $pdf->Cell(9, 0.5, '______________________________________________', 'R', 1, 'C');
-        //$pdf->Cell(9, 0.5, "$pdf->Code128(50,170,$numero,60,15)", 'R', 1, 'C');
-        //$pdf->Cell(9, 0.5, "$barcode", 'R', 1, 'C');
-        //$pdf->Code128(50,170,$numero,60,15);
-        //$pdf->i25(90,40,"$numero");
-        //$pdf->Codabar(75,40,'123456789');
-        //$pdf->Code39(1,1,'CODE 39',1,10);
-        //$pdf->WriteHTML("'".$barcode."'");
-        //$pdf->WriteHTML("$barcode");
-        //var_dump($barcode); die();
-        //echo $barcode;
+        $pdf->Cell(9, 0.5, "$barcode", 'R', 1, 'C');
+
         $pdf->SetFont('arial', 'B', 8);
         $pdf->Cell(9, 0.5, 'APAE IPATINGA', 'L', 0, 'C');
         //$pdf->Cell(9, 0.5, 'MENSAGEIRO', 'R', 1, 'C');
