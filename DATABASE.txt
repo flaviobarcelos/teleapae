@@ -7,4 +7,4 @@ INSERT INTO `db_teleapae`.`sis_modulo_pagina` (`cdmodulo`, `cdpagina`) VALUES ('
 ALTER TABLE `tb_doacao`
 	CHANGE COLUMN `dtrec` `dtrec` DATE NULL DEFAULT NULL;
 
-	alter table tb_doacao add codigo_barra int(15) default null;
+	alter table tb_doacao add codigo_barra bigint default null

@@ -170,7 +170,7 @@ while ($res = mysql_fetch_assoc($sql)) {
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <img width="60px"  src="<?=IMG?>/logo_relatorio2.jpg" alt="">
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="font-size: 8px; font-family: Arial; margin-top: 5px ">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="font-size: 9px; font-family: Arial; margin-top: 5px ">
                 Av. 26 de Outubro, 1595, B. Bela Vista, Ipatinga/MG - CEP 35.160-208 <br>
                 CNPJ 20.951.190/0001-30 - U.P. MUNICIPAL - LEI No 649 de 19/07/79<br>
                 U.P. ESTADUAL - LEI No 7656 de 27/12/79 - U.P. FEDERAL DECRETO LEI No 91.108 de 12/03/85<br>
@@ -200,7 +200,7 @@ while ($res = mysql_fetch_assoc($sql)) {
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: center">
                         <?php
-                        $texto = date(Ymd).$res['cdusuario'];
+                        $texto = date(Ymd).$res['cddoacao'];
                         $tam_texto = strlen($texto);
                         while($tam_texto < 12)
                         {
@@ -215,6 +215,12 @@ while ($res = mysql_fetch_assoc($sql)) {
                         <br>
                         <?=$barcode_img?><br>
                         <?=$texto?>
+                        <?php
+                            //insere o numero do codigo de barra na doacao
+                            $cddoacao = $res['cddoacao'];
+                            $sql_ins = "update tb_doacao set codigo_barra = $texto where cddoacao = $cddoacao";
+                            mysql_query($sql_ins, $con);
+                        ?>
                     </div>
                 </div>
                 <div class="row" style="margin-bottom:5px; font-size: 7px; font-family: Arial;">
