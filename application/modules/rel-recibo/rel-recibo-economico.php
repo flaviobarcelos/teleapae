@@ -1,4 +1,7 @@
 <?php
+
+echo "<link rel='stylesheet' type='text/css' href='" . CSS . "/style.css'>";
+echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">';
 /**
  * impress?o dos recibos
  */
@@ -101,126 +104,133 @@ if (!mysql_num_rows($sql)) {
     require(INCLUDES . '/inc.footer.php');
     exit();
 }
-
-include_once(CLASSES . '/pdf/PdfWithBarCode.php');
-$pdf = new PdfWithBarCode('P','cm','A4');
-$pdf->SetMargins(1.45, 1, 1);
-$pdf->AliasNbPages('{total}');
-$pdf->SetTitle('RECIBOS DE DOAÇÃO');
-$pdf->SetTextColor(00, 00, 00);
-$pdf->SetFillColor(200,200,200);
-
-$x = 0;
-$img = array(0=>'1.65', 1=>'8.35', 2=>'15.05', 3=>'21.75');
-
+$texto = '123456789123';
+if((strlen($texto) % 2) <> 0){
+    $texto = '1'.$texto;
+}
+$resultado = geraCodigoBarra($texto);
+$x=0;
 while ($res = mysql_fetch_assoc($sql)) {
     //mostra_array($res);
-
-    for ($w = 0; $w <= 1; $w++) {
-        if ($x >= 4) {
-            $x = 0;
-        }
-
-        if ($x == 0) {
-            $pdf->AddPage();
-        }
-
-
-        $pdf->Image(IMG . '/logo_relatorio2.jpg', 1.9, $img[$x], 1.2);
-        $pdf->SetFont('arial','B', 10);
-        $pdf->Cell(14.5, 0.5, 'ASSOCIAÇÃO DE PAIS E AMIGOS DOS EXCEPCIONAIS DE IPATINGA', 'LTR', 0, 'C', 1);
-
-        $pdf->SetFont('arial','', 8);
-        $pdf->Cell(3.5, 0.5, 'RECIBO Nº', 1, 1, 'C', 1);
-        $pdf->SetFont('arial','B', 14);
-        $pdf->Cell(14.5, 1.5, '', 1, 0, 'R');
-        $pdf->Cell(3.5, 1, number_format($res['cddoacao'],'', '.', '.'), 'R', 1, 'C');
-        $pdf->Cell(14.5, 0.5, '', 0, 0, 'R');
-        $pdf->SetFont('arial','B', 8);
-        $pdf->Cell(3.5, 0.5, $res['sgtpdoador'] . ' - ' . $res['cdusuario'], 'RB', 1, 'C');
-
-        $pdf->SetFont('arial', '', 7);
-
-        $pdf->Ln(-1.3);
-        $pdf->MultiCell(14, 0.3, '                               Av. 26 de Outubro, 1595, B. Bela Vista, Ipatinga/MG - CEP 35.160-208
-                               CNPJ 20.951.190/0001-30 - U.P. MUNICIPAL - LEI Nº 649 de 19/07/79
-                               U.P. ESTADUAL - LEI N? 7656 de 27/12/79 - U.P. FEDERAL DECRETO LEI Nº 91.108 de 12/03/85
-                               Registro CNSS: 23.002.006747/88-53 - TELEFONE: (31)3822-3502', 0, 1);
-
-
-        $pdf->SetFont('arial', '', 8);
-        $pdf->Ln(0.1);
-
-        //cpf/cnpj
-        if ($res['sgtppessoa'] == 'F') {
-            $cpf = $res['cpf'];
-        }
-        else {
-            $cpf = $res['cnpj'];
-        }
-
-        if (!$cpf) {
-            $cpf = '______________________';
-        }
-
-        //telefone
-        $tel = $res['telefone1'];
-        if ($res['telefone2']) {
-            $tel .= ' / ' . $res['telefone2'];
-        }
-
-        if ($res['telefone3']) {
-            $tel .= ' / ' . $res['telefone3'];
-        }
-
-        if ($tel) {
-            $tel = ', telefone(s) ' . $tel;
-        }
-
-        //vldoacao
-        if ($res['vldoacao'] <= 0) {
-            $vldoacao = '_____________';
-        }
-        else {
-            $vldoacao = 'R$' . number_show($res['vldoacao']);
-        }
-
-        $pdf->MultiCell(18, 0.35, '
-Recebemos de ' . $res['nmresponsavel'] . ', CNPJ/CPF nº ' . $cpf . ', residente na ' . $res['endereco'] . ', ' . $res['num'] . ', ' . $res['nmbairro'] . ', ' . $res['nmcidade'] . '/' . $res['sgestado'] . $tel . ', a quantia de ' . $vldoacao . ', referente à doação do dia ' . inverte_formato_data($res['dtrec'], '/') . '.
-
-Para clareza e devidos fins, firmamos o presente.
-Ipatinga, ' . date('d') . ' de ' . date('F') . ' de ' . date('Y') . '
-
-
-', 'LR');
-
-        $numero = date(Ymdhis).$res['cddoacao'];
-        $barcode = geraCodigoBarra($numero);
-        $pdf->SetFont('arial', '', 8);
-        $pdf->Cell(9, 0.5, '______________________________________________', 'L', 0, 'C');
-        $pdf->Cell(9, 0.5, "$barcode", 'R', 1, 'C');
-
-        $pdf->SetFont('arial', 'B', 8);
-        $pdf->Cell(9, 0.5, 'APAE IPATINGA', 'L', 0, 'C');
-        //$pdf->Cell(9, 0.5, 'MENSAGEIRO', 'R', 1, 'C');
-        $pdf->Cell(9, 0.5, "$numero", 'R', 1, 'C');
-
-        /*
-        $pdf->SetFont('arial', '', 7);
-        $pdf->Ln(-6.15);
-        $pdf->SetX(20);
-        $pdf->Rotate(-90);
-        $pdf->MultiCell(6.15, 0.3, $res['obsrecibo'], 1, 'L');
-        $pdf->Rotate(0);
-        $pdf->Ln(6.25);
-        */
-
-        $pdf->SetFont('arial', '', 7);
-        $pdf->Cell(18, 0.4, $res['obsrecibo'], 'LBR', 1, 'L');
-
-        $pdf->Ln(0.3);
-        $x++;
+    //verifica se ja tem 4 formularios em uma folha pra criar o layout da proxima
+    if($x % 4 == 0)
+    {
+        //verifica se ja tem 4 itens pra fechar a div da folha antes de iniciar outra
+        if($x>0)echo '</div>';
+        echo '<div class="page">';
     }
+
+    //cpf/cnpj
+    if ($res['sgtppessoa'] == 'F') {
+        $cpf = $res['cpf'];
+    }
+    else {
+        $cpf = $res['cnpj'];
+    }
+
+    if (!$cpf) {
+        $cpf = '______________________';
+    }
+
+    //telefone
+    $tel = $res['telefone1'];
+    if ($res['telefone2']) {
+        $tel .= ' / ' . $res['telefone2'];
+    }
+
+    if ($res['telefone3']) {
+        $tel .= ' / ' . $res['telefone3'];
+    }
+
+    if ($tel) {
+        $tel = ', telefone(s) ' . $tel;
+    }
+
+    //vldoacao
+    if ($res['vldoacao'] <= 0) {
+        $vldoacao = '_____________';
+    }
+    else {
+        $vldoacao = 'R$' . number_show($res['vldoacao']);
+    }
+
+    ?>
+    <div class="container-fluid" style="font-weight: bold; margin-top: 5px"
+         xmlns:border-right="http://www.w3.org/1999/xhtml">
+        <div class="row" style="background-color: #C8C8C8; border-bottom: 1px solid black; ">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" style="text-align: center; font-size: 10px; font-family: Arial; margin: 5px 0px;">
+                ASSOCICAO DE PAIS E AMIGOS DOS EXCEPCIONAIS DE IPATINGA
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="height: 25px; border-right: solid 1px black">
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style=" text-align: center; font-size: 8px; font-family: Arial; padding-top:6px;">
+                RECIBO Nº
+            </div>
+        </div>
+        <div class="row" style="border-bottom: 1px solid black;">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <img width="60px"  src="<?=IMG?>/logo_relatorio2.jpg" alt="">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="font-size: 8px; font-family: Arial; margin-top: 5px ">
+                Av. 26 de Outubro, 1595, B. Bela Vista, Ipatinga/MG - CEP 35.160-208 <br>
+                CNPJ 20.951.190/0001-30 - U.P. MUNICIPAL - LEI No 649 de 19/07/79<br>
+                U.P. ESTADUAL - LEI No 7656 de 27/12/79 - U.P. FEDERAL DECRETO LEI No 91.108 de 12/03/85<br>
+                Registro CNSS: 23.002.006747/88-53 - TELEFONE: (31)3822-3502
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="height: 70px; border-right: solid 1px black">
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="margin-top:10px; text-align: center; font-weight: bold; font-family: Arial">
+                <p style="font-size: 16px"><?php echo $res['cddoacao']; ?></p>
+                <p style="font-size: 10px"><?php echo $res['sgtpdoador'] . ' - ' . $res['cdusuario']; ?></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style=" margin-top:10px; font-family: Arial; font-size: 10px">
+                <p>
+                    Recebemos de <?=$res['nmresponsavel']?>, CNPJ/CPF no <?=$cpf?>, residente na <?=$res['endereco']?>, <?=$res['num']?>,
+                    <?=$res['nmbairro']?>, <?=$res['nmcidade']?>/<?=$res['sgestado']?>, telefone(s) <?=$tel?>, a quantia de <?=$vldoacao?>, referente à doação do dia <?php inverte_formato_data($res['dtrec'], '/'); ?>.
+                </p>
+                <br>
+                <p>Para clareza e devidos fins, firmamos o presente.</p>
+                <p>Ipatinga, <?php echo date('d') . ' de ' . date('F') . ' de ' . date('Y'); ?></p>
+                <div class="row" >
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    </div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="text-align: center">
+                        <img width="150px" src="<?=IMG?>/assinatura.png" class="img-responsive" alt="Image">
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: center">
+                        <?php
+                        $texto = date(Ymd).$res['cdusuario'];
+                        $tam_texto = strlen($texto);
+                        while($tam_texto < 12)
+                        {
+                            $texto.='0';
+                            $tam_texto++;
+                        }
+                        /*if((strlen($texto) % 2) <> 0){
+                            $texto = '1'.$texto;
+                        }*/
+                        $barcode_img = geraCodigoBarra($texto);
+                        ?>
+                        <br>
+                        <?=$barcode_img?><br>
+                        <?=$texto?>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom:5px; font-size: 7px; font-family: Arial;">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <?=$res['obsrecibo']?>
+                    </div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                        ________ de ___________________ de 20______
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php
+$x++;
 }
 
 $pdf->Output();
