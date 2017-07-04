@@ -1,5 +1,10 @@
 =============================	29/06/2017	===========================
 
-INSERT INTO `db_teleapae`.`sis_pagina` (`nmarquivo`, `dspagina`, `cdtppagina`, `inicial`) VALUES ('rel-recibo-economico.php', 'IMPRESSÃO DOS RECIBOS MODO ECONOMICO', '1', 'N');
+INSERT INTO `db_teleapae`.`sis_pagina` (`nmarquivo`, `dspagina`, `cdtppagina`, `inicial`) VALUES ('rel-recibo-economico.php', 'IMPRESSï¿½O DOS RECIBOS MODO ECONOMICO', '1', 'N');
 
 INSERT INTO `db_teleapae`.`sis_modulo_pagina` (`cdmodulo`, `cdpagina`) VALUES ('8', '105');
+
+ALTER TABLE `tb_doacao`
+	CHANGE COLUMN `dtrec` `dtrec` DATE NULL DEFAULT NULL;
+
+	alter table tb_doacao add codigo_barra int(15) default null;

@@ -1,7 +1,6 @@
 <?php
-
-echo "<link rel='stylesheet' type='text/css' href='" . CSS . "/style.css'>";
 echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">';
+echo "<link rel='stylesheet' type='text/css' href='" . CSS . "/style.css'>";
 /**
  * impress?o dos recibos
  */
@@ -232,5 +231,3 @@ while ($res = mysql_fetch_assoc($sql)) {
 <?php
 $x++;
 }
-
-$pdf->Output();
