@@ -175,8 +175,8 @@ while ($res = mysql_fetch_assoc($sql)) {
     $barcode_img = geraCodigoBarra($texto);
     
     //laço de repetição para gerar duas vias de cada recibo
-    //for ($x = 0; $x <= 1; $x++) 
-    //{            
+    for ($x = 0; $x <= 1; $x++) 
+    {            
 	$quebraPagina = $c % 4 == 0 && $c > 0 ? '<div style="page-break-after: always"></div>' : null;
 	echo $quebraPagina;
     ?>
@@ -247,6 +247,7 @@ while ($res = mysql_fetch_assoc($sql)) {
         </div>
     </div>
 <?php
-    $c++; //} //finaliza laço de repetição das duas vias
+    $c++; 
+} //finaliza laço de repetição das duas vias
 $x++;
 }
